@@ -6,19 +6,9 @@ namespace NotaryTry2 {
 		static void Main(string[] args) {
 			Random rand = new Random();
 
-			Money money = new Money(14.45);
-
-			for(int i = 0; i < 10; i++) {
-				double val = rand.Next(0, 100000) / 100.0;
-				//double val = 530.43;
-				Console.WriteLine($"\t{val.ToString("0.00")}\t{new Money(val)}");
-			}
-			Console.WriteLine();
-			for(int i = 0; i < 10; i++) {
-				double val = rand.Next(0, 1000000) / 100.0;
-				//double val = 530.43;
-				Console.WriteLine($"\t{val.ToString("0.00")}\t{new Money(val)}");
-			}
+			string date = "16/02/2018";
+			var dt = DateTime.Parse(date);
+			Console.WriteLine(dt);
 		}
 	}
 }

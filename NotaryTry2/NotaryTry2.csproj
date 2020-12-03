@@ -43,7 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Money.cs" />
+    <Compile Include="DateConverter.cs" />
+    <Compile Include="MoneyConverter.cs" />
     <Compile Include="Name.cs" />
     <Compile Include="PassportData.cs" />
     <Compile Include="Person.cs" />

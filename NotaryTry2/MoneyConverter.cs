@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 
 namespace NotaryTry2 {
-	class Money {
+	class MoneyConverter {
 		private static readonly string[] PENNIES_UNITS = {"ноль", "одна", "две", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"};
 		private static readonly string[] RUBLES_UNITS = {"ноль", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять"};
 		private static readonly string[] DOZENS = { "", "десять", "двадцать", "тридцать", "сорок", "пятьдесят", "шестьдесят", "семьдесят", "восемьдесят", "девяносто" };
@@ -16,7 +16,7 @@ namespace NotaryTry2 {
 
 		private double value;
 
-		public Money(double val) => Value = Math.Round(val, 2);
+		public MoneyConverter(double val) => Value = Math.Round(val, 2);
 
 		public double Value {
 			get => value;
@@ -46,7 +46,7 @@ namespace NotaryTry2 {
 			return arr[2];
 		}
 
-		private string ConvertIntegerPart(int val) { // Конвертировать всю целую часть числа
+		private string ConvertIntegerPart(int val) { // Конвертирует всю целую часть числа
 			string answer = "";
 			for(int i = 0; val > 0; i++, val /= 1000) {
 				string temp = (i == 1)? ConvertHundredToString(val % 1000, PENNIES_UNITS) : ConvertHundredToString(val % 1000, RUBLES_UNITS);
@@ -59,11 +59,11 @@ namespace NotaryTry2 {
 			return answer;
 		}
 
-		private string ConvertDecimalPart(int val) { // Конвертировать всю дробную часть числа
+		private string ConvertDecimalPart(int val) { // Конвертирует всю дробную часть числа
 			return ConvertHundredToString(val, PENNIES_UNITS) + ' ' + GetEnding(val, PENNIES);
 		}
 
-		private string ConvertHundredToString(int val, string[] arr) { // Конвертировать тройку позиций числа
+		private string ConvertHundredToString(int val, string[] arr) { // Конвертирует тройку позиций числа
 			string answer = "";
 
 			answer += HUNDREDS[val / 100];
@@ -77,7 +77,7 @@ namespace NotaryTry2 {
 			return answer;
 		}
 
-		public static Money operator +(Money a, Money b) => new Money(a.Value + b.Value);
-		public static Money operator /(Money a, int div) => new Money(a.Value / div);
+		public static MoneyConverter operator +(MoneyConverter a, MoneyConverter b) => new MoneyConverter(a.Value + b.Value);
+		public static MoneyConverter operator /(MoneyConverter a, int div) => new MoneyConverter(a.Value / div);
 	}
 }
