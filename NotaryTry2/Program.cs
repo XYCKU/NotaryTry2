@@ -6,9 +6,13 @@ namespace NotaryTry2 {
 		static void Main(string[] args) {
 			Random rand = new Random();
 
+			Money money = new Money(14.45);
+
 			for(int i = 0; i < 10; i++) {
-				Console.WriteLine((new Person()).ToString());
+				double val = rand.Next(0, 78999) / 100.0;
+				Console.WriteLine($"{val}\t{new Money(val)}\n");
 			}
+
 		}
 	}
 }

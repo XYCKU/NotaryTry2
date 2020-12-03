@@ -33,7 +33,7 @@ namespace NotaryTry2 {
 			return this.Passport.ToString();
 		}
 
-		override public string ToString() {
+		public override string ToString() {
 			return $"{this.GetFullName()}\n{this.GetPassportData()}\n";
 		}
 

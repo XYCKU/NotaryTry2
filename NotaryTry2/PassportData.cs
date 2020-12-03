@@ -11,7 +11,7 @@ namespace NotaryTry2 {
 		private string passportSerial, passportPersonal;
 		
 		public string PassportSerial {
-			get => PassportSerial;
+			get => passportSerial;
 			set {
 				if (PASS_SERIAL_REGEX.IsMatch(value)) {
 					passportSerial = value;
@@ -37,7 +37,7 @@ namespace NotaryTry2 {
 			PassportPersonal = rand.Next(1000000, 9999999).ToString() + "M00" + rand.Next(0, 9).ToString() + "PB" + rand.Next(0, 9).ToString();
 		}
 
-		override public string ToString() {
+		public override string ToString() {
 			return $"{this.PassportSerial} {this.PassportPersonal}";
 		}
 	}

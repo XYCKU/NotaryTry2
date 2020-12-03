@@ -45,7 +45,7 @@ namespace NotaryTry2 {
 			SecondName = secName;
 		}		
 
-		override public string ToString() {
+		public override string ToString() {
 			return $"{this.FamilyName} {this.FirstName} {this.SecondName}";
 		}
 	}
