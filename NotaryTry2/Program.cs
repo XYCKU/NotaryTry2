@@ -11,22 +11,14 @@ namespace NotaryTry2 {
 			for(int i = 0; i < 10; i++) {
 				double val = rand.Next(0, 100000) / 100.0;
 				//double val = 530.43;
-				Console.WriteLine($"{val.ToString("0.00")}\t{new Money(val).ToShortString()}");
+				Console.WriteLine($"\t{val.ToString("0.00")}\t{new Money(val)}");
 			}
 			Console.WriteLine();
 			for(int i = 0; i < 10; i++) {
-				double val = rand.Next(0, 100000000) / 100.0;
+				double val = rand.Next(0, 1000000) / 100.0;
 				//double val = 530.43;
-				Console.WriteLine($"{val}\t{new Money(val)}");
+				Console.WriteLine($"\t{val.ToString("0.00")}\t{new Money(val)}");
 			}
-			Console.WriteLine();
-			for (int i = 0; i < 10; i++) {
-				double val = rand.Next(0, 99999999) * 10 / 100.0;
-				//double val = 530.43;
-				Console.WriteLine($"{val}\t{new Money(val)}");
-			}
-			
-
 		}
 	}
 }

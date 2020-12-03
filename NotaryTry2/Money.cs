@@ -23,21 +23,21 @@ namespace NotaryTry2 {
 			set { this.value = value; }
 		}
 
-		public string ToShortString() {
+		public string ToShortString() { // Выводит короткую запись суммы: 22 рубля 14 копеек
 			int integer = (int)Math.Floor(Value);
 			int dec = ((int)Math.Round(Value * 100)) % 100;
 			return $"{integer} {GetEnding(integer, RUBLES[0])} {dec.ToString("00")} {GetEnding(dec, PENNIES)}";
 		}
 
-		public override string ToString() {
+		public override string ToString() { // Выводит всю сумму прописью
 			int integer = (int)Math.Floor(Value);
 			int dec = ((int)Math.Round(Value * 100)) % 100;
-			string answer = ConvertIntegerPart(integer) + " " + ConverDecimalPart(dec);
+			string answer = ConvertIntegerPart(integer) + " " + ConvertDecimalPart(dec);
 			
 			return Regex.Replace(answer, @"\s+", " ");
 		}
 
-		private string GetEnding(int val, string[] arr) {
+		private string GetEnding(int val, string[] arr) { // Выбирает правильное окончание для каждой сотни
 			if (val % 100 > 10 && val % 100 < 20) {
 				return arr[2];
 			}
@@ -46,7 +46,7 @@ namespace NotaryTry2 {
 			return arr[2];
 		}
 
-		private string ConvertIntegerPart(int val) {
+		private string ConvertIntegerPart(int val) { // Конвертировать всю целую часть числа
 			string answer = "";
 			for(int i = 0; val > 0; i++, val /= 1000) {
 				string temp = (i == 1)? ConvertHundredToString(val % 1000, PENNIES_UNITS) : ConvertHundredToString(val % 1000, RUBLES_UNITS);
@@ -59,11 +59,11 @@ namespace NotaryTry2 {
 			return answer;
 		}
 
-		private string ConverDecimalPart(int val) {
+		private string ConvertDecimalPart(int val) { // Конвертировать всю дробную часть числа
 			return ConvertHundredToString(val, PENNIES_UNITS) + ' ' + GetEnding(val, PENNIES);
 		}
 
-		private string ConvertHundredToString(int val, string[] arr) {
+		private string ConvertHundredToString(int val, string[] arr) { // Конвертировать тройку позиций числа
 			string answer = "";
 
 			answer += HUNDREDS[val / 100];
