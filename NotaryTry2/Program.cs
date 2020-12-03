@@ -7,8 +7,9 @@ namespace NotaryTry2 {
 			Random rand = new Random();
 
 			string date = "16/02/2018";
-			var dt = DateTime.Parse(date);
-			Console.WriteLine(dt);
+			var dt = new DateConverter(date);
+			Console.WriteLine(dt.DT);
+			
 		}
 	}
 }
