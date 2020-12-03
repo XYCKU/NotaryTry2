@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace NotaryTry2 {
 	class Money {
@@ -23,13 +24,17 @@ namespace NotaryTry2 {
 		}
 
 		public string ToShortString() {
-			return $"";
+			int integer = (int)Math.Floor(Value);
+			int dec = ((int)Math.Round(Value * 100)) % 100;
+			return $"{integer} {GetEnding(integer, RUBLES[0])} {dec.ToString("00")} {GetEnding(dec, PENNIES)}";
 		}
 
 		public override string ToString() {
 			int integer = (int)Math.Floor(Value);
-			int dec = ((int)Math.Floor(Value * 100)) % 100;
-			return ConvertIntegerPart(integer) + " " + ConverDecimalPart(dec);
+			int dec = ((int)Math.Round(Value * 100)) % 100;
+			string answer = ConvertIntegerPart(integer) + " " + ConverDecimalPart(dec);
+			
+			return Regex.Replace(answer, @"\s+", " ");
 		}
 
 		private string GetEnding(int val, string[] arr) {
@@ -44,12 +49,14 @@ namespace NotaryTry2 {
 		private string ConvertIntegerPart(int val) {
 			string answer = "";
 			for(int i = 0; val > 0; i++, val /= 1000) {
-				string temp = ConvertHundredToString(val % 1000, RUBLES_UNITS);
+				string temp = (i == 1)? ConvertHundredToString(val % 1000, PENNIES_UNITS) : ConvertHundredToString(val % 1000, RUBLES_UNITS);
 				if (temp != RUBLES_UNITS[0] || i == 0) {
-					answer = temp + " " + GetEnding(val % 100,	RUBLES[i]);
+					temp += ' ' + GetEnding(val % 100,	RUBLES[i]);
 				}
+				answer = temp + ' ' + answer;
 			}
-			return answer.Trim();
+			//Console.WriteLine(answer);
+			return answer;
 		}
 
 		private string ConverDecimalPart(int val) {
@@ -64,11 +71,10 @@ namespace NotaryTry2 {
 				answer += ' ' + EXCEPTION[val % 10];
 			} else {
 				answer += ' ' + DOZENS[(val % 100) / 10];
+				if ((string.IsNullOrWhiteSpace(answer) && val % 10 == 0) || val % 10 != 0) 
+					answer += ' ' + arr[val % 10];
 			}
-			if (string.IsNullOrWhiteSpace(answer) && val % 10 == 0) answer = arr[val % 10];
-	
-
-			return answer.Trim();
+			return answer;
 		}
 
 		public static Money operator +(Money a, Money b) => new Money(a.Value + b.Value);
