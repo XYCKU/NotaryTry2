@@ -6,10 +6,10 @@ namespace NotaryTry2 {
 		static void Main(string[] args) {
 			Random rand = new Random();
 
-			string date = "16/02/2018";
-			var dt = new DateConverter(date);
-			Console.WriteLine(dt.DT);
-			
+			string date = "/01/2018";
+			for(int i = 1; i < 32; i++) {
+				new DateConverter($"{i}{date}");
+			}
 		}
 	}
 }
