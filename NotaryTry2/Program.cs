@@ -6,9 +6,9 @@ namespace NotaryTry2 {
 		static void Main(string[] args) {
 			Random rand = new Random();
 
-			string date = "/01/2018";
-			for(int i = 1; i < 32; i++) {
-				new DateConverter($"{i}{date}");
+			for(int i = 0; i < 20; i++) {
+				double val = rand.Next(0, 99999) / 100.0;
+				Console.WriteLine($"{val:0.00}\t{new MoneyConverter(val)}");
 			}
 		}
 	}

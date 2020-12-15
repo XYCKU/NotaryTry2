@@ -7,6 +7,9 @@ namespace NotaryTry2 {
 		private static readonly string[] DAYS_UNITS = { "", "первого", "второго", "третьего", "четвертого", "пятого", "шестого", "седьмого", "восьмого", "девятого", "десятого", 
 														"одиннадцатого", "двенадцатого", "тринадцатого", "четырнадцатого", "пятнадцатого", "шестнадцатого", "семнадцатого", "восемнадцатого", "девятнадцатого", 
 														"двадцатого", "двадцать", "двадцать", "двадцать", "двадцать", "двадцать", "двадцать", "двадцать", "двадцать", "двадцать", "тридцатого", "тридцать" };
+		private static readonly string[] YEAR_THOUSANDS = { "", "одна", "две" };
+		private static readonly string[] YEAR_HUNDREDS = { "", "", "", "", "", "", "", "", "", "девятьсот", };
+		private static readonly string[] YEARS = { "", "первого", "второго", "третьего", "четвертого", "пятого", "шестого", "седьмого", "восьмого", "девятого", };
 
 		private DateTime dt;
 
@@ -20,7 +23,7 @@ namespace NotaryTry2 {
 			DT = new DateTime();
 			
 		}
-		public DateConverter(string dateString) {
+		public DateConverter(string dateString) { // Конструктор
 			if (DateTime.TryParse(dateString, out DateTime result)) {
 				DT = result;
 			} else {
@@ -28,7 +31,7 @@ namespace NotaryTry2 {
 			}
 			Console.WriteLine(ConvertDay(DT.Day) + ' ' + ConvertMonth(DT.Month));
 		}
-		private string ConvertDay(int val) {
+		private string ConvertDay(int val) { // Преобразует день в слова
 			if (val > 10 && val < 20) {
 				return DAYS_UNITS[val];
 			}
@@ -38,7 +41,7 @@ namespace NotaryTry2 {
 				return DAYS_UNITS[val % 10];
 			}
 		}
-		private string ConvertMonth(int val) {
+		private string ConvertMonth(int val) { // Преобразует месяц в слово
 			return MONTHS[val];
 		}
 	}

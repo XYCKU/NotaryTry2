@@ -9,6 +9,7 @@ namespace NotaryTry2 {
 		private static readonly Regex PASS_PERSONAL_REGEX = new Regex(@"^\d{7}([A-Z]|[А-Я])\d{3}([A-Z]|[А-Я]){2}\d$");
 		
 		private string passportSerial, passportPersonal;
+		private DateTime passportDate;
 		
 		public string PassportSerial {
 			get => passportSerial;
@@ -30,7 +31,12 @@ namespace NotaryTry2 {
 				}
 			}
 		}
-
+		public DateTime PassportDate {
+			get => passportDate;
+			set {
+				passportDate = value;
+			}
+		}
 
 		public PassportData() {
 			PassportSerial = "KB" + rand.Next(1000000, 9999999).ToString();
