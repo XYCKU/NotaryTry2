@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace NotaryTry2 {
@@ -31,13 +32,13 @@ namespace NotaryTry2 {
 
 		public override string ToString() { // Выводит всю сумму прописью
 			int integer = (int)Math.Floor(Value);
-			int dec = ((int)Math.Round(Value * 100)) % 100;
+			int dec = ((int)Math.Round((Value - integer)*100)) % 100;
 			string answer = ConvertIntegerPart(integer) + " " + ConvertDecimalPart(dec);
 			
-			return Regex.Replace(answer, @"\s+", " ");
+			return Regex.Replace(answer.Trim(), @"\s+", " ");
 		}
 
-		private string GetEnding(int val, string[] arr) { // Выбирает правильное окончание для каждой сотни
+		static private string GetEnding(int val, string[] arr) { // Выбирает правильное окончание для каждой сотни
 			if (val % 100 > 10 && val % 100 < 20) {
 				return arr[2];
 			}
@@ -46,26 +47,38 @@ namespace NotaryTry2 {
 			return arr[2];
 		}
 
-		private string ConvertIntegerPart(int val) { // Конвертирует всю целую часть числа
-			string answer = "";
-			for(int i = 0; val > 0; i++, val /= 1000) {
-				string temp = (i == 1)? ConvertHundredToString(val % 1000, PENNIES_UNITS) : ConvertHundredToString(val % 1000, RUBLES_UNITS);
-				if (temp != RUBLES_UNITS[0] || i == 0) {
-					temp += ' ' + GetEnding(val % 100,	RUBLES[i]);
-				}
-				answer = temp + ' ' + answer;
+		static private string ConvertIntegerPart(int val) { // Конвертирует всю целую часть числа
+			List<string> answer = new List<string>();
+
+			if (val == 0) {
+				return ConvertHundredToString(val, RUBLES_UNITS) + " " + GetEnding(val, RUBLES[0]);
 			}
-			//Console.WriteLine(answer);
-			return answer;
+
+			for (int i = 0; val > 0; i++, val /= 1000) {
+				if ((val % 1000 != 0 || val / 1000 == 0)) {
+					answer.Add(GetEnding(val % 100, RUBLES[i]));
+					if (i == 1) {
+						answer.Add(ConvertHundredToString(val % 1000, PENNIES_UNITS));
+					} else {
+						answer.Add(ConvertHundredToString(val % 1000, RUBLES_UNITS));
+					}
+				} else {
+					if (i == 0) {
+						answer.Add(GetEnding(val % 100, RUBLES[i]));
+					}
+				}
+			}
+
+			answer.Reverse();
+			return string.Join(" ", answer);
 		}
 
-		private string ConvertDecimalPart(int val) { // Конвертирует всю дробную часть числа
+		static private string ConvertDecimalPart(int val) { // Конвертирует всю дробную часть числа
 			return ConvertHundredToString(val, PENNIES_UNITS) + ' ' + GetEnding(val, PENNIES);
 		}
 
-		private string ConvertHundredToString(int val, string[] arr) { // Конвертирует тройку позиций числа
+		static private string ConvertHundredToString(int val, string[] arr) { // Конвертирует тройку позиций числа
 			string answer = "";
-
 			answer += HUNDREDS[val / 100];
 			if (val % 100 > 10 && val % 100 < 20) {
 				answer += ' ' + EXCEPTION[val % 10];
